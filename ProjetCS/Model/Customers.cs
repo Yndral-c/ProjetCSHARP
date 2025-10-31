@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Projet_CS.Model;
+namespace ProjetCS.Model;
 
 public class Customers
 {
@@ -16,6 +16,8 @@ public class Customers
     [Required] private string phoneNumber;
     
     [Required] private string email;
+    
+    private List<Cars> cars;
     
     public string Name
     {
@@ -41,5 +43,11 @@ public class Customers
     {
         get => email;
         set => email = value ?? throw new ArgumentNullException(nameof(value));
+    }
+    
+    public List<Cars> Cars
+    {
+        get => cars;
+        set => cars = value ?? throw new ArgumentNullException(nameof(value));
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Projet_CS.Model;
+namespace ProjetCS.Model;
 
-public class Car
+public class Cars
 {
     [Key]
     public Guid Id { get; set; } = new Guid();
@@ -18,6 +19,11 @@ public class Car
     [Required] private string color;
 
     [Required] private bool sale;
+
+    [ForeignKey("fk_customer_cars")]
+    public Guid IdCustomer {get; set;}
+    
+    public Customers Customers {get; set;}
     
     public string Brand
     {
