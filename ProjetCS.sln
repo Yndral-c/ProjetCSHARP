@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet CS", "Projet CS\Projet CS.csproj", "{1649BE72-CBC5-4752-AAC5-C5308CC3C443}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetCS", "ProjetCS\ProjetCS.csproj", "{1649BE72-CBC5-4752-AAC5-C5308CC3C443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
