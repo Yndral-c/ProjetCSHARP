@@ -7,7 +7,7 @@ public class Customers
     [Key]
     public Guid Id { get; set; } = new Guid();
     
-    [Required] private string name;
+    [Required] private string lastname;
     
     [Required] private string firstname;
     
@@ -19,16 +19,16 @@ public class Customers
     
     private List<Cars> cars;
     
-    public string Name
+    public string Lastname
     {
-        get => name;
-        set => name = value ?? throw new ArgumentNullException(nameof(value));
+        get => lastname;
+        set => lastname = value ?? throw new ArgumentNullException(nameof(value));
     }
     public string Firstname
     {
         get => firstname;
-        set => firstname = value ?? throw new ArgumentNullException(nameof(value));
-    }
+            set => firstname = value ?? throw new ArgumentNullException(nameof(value));
+        }
     public DateTime Birthdate
     {
         get => birthdate;

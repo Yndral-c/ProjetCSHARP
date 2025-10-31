@@ -1,3 +1,5 @@
+using ProjetCS.Data;
+
 namespace ProjetCS.Model;
 
 public class CarRepository : ICarRepository
