@@ -35,7 +35,7 @@ public class AppDbContext : DbContext
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile(
-                @"C:\Users\Landry\RiderProjects\ProjetCSHARP\ProjetCS\appsettings.json")
+                @"ProjetCS/appsettings.json")
             .Build();
 
         if (!optionsBuilder.IsConfigured)
