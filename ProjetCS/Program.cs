@@ -19,6 +19,6 @@ var host = Host.CreateDefaultBuilder(args)
         // On enregistre notre service CSV pour lire le fichier et mapper les objets
         services.AddTransient<DbConnection>();
 
-        services.AddTransient<IPersonRepository, PersonRepository>();
+        services.AddTransient<ICarRepository, CarRepository>();
     })
     .Build();
