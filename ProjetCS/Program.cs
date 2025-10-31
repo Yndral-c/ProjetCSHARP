@@ -72,5 +72,10 @@ for (int i = 1; i < lignesCustomer.Length; i++) // On commence à 1 pour sauter 
     };
     customers.Add(customer);
 } 
-    
+
+
+DbConnection dbConnectionService = scope.ServiceProvider.GetRequiredService<DbConnection>();
+// Insert data
+dbConnectionService.SaveFullCars(cars);
+dbConnectionService.SaveFullCustomers(customers);
     
