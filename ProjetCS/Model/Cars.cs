@@ -1,4 +1,6 @@
-﻿namespace Projet_CS.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Projet_CS.Model;
 
 public class Car
 {
@@ -35,7 +37,7 @@ public class Car
     public double PriceHt
     {
         get => priceHt;
-        set => priceHt = value ?? throw new ArgumentNullException(nameof(value));
+        set => priceHt = value;
     }
     public string Color
     {
@@ -45,6 +47,6 @@ public class Car
     public bool Sale
     {
         get => sale;
-        set => sale = value ?? throw new ArgumentNullException(nameof(value));
+        set => sale = value;
     }
 }

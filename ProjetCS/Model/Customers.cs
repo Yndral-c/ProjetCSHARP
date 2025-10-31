@@ -1,4 +1,6 @@
-﻿namespace Projet_CS.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Projet_CS.Model;
 
 public class Customers
 {
@@ -25,10 +27,10 @@ public class Customers
         get => firstname;
         set => firstname = value ?? throw new ArgumentNullException(nameof(value));
     }
-    public string Birthdate
+    public DateTime Birthdate
     {
         get => birthdate;
-        set => birthdate = value ?? throw new ArgumentNullException(nameof(value));
+        set => birthdate = value;
     }
     public string PhoneNumber
     {
