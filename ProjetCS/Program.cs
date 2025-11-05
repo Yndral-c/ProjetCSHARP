@@ -70,7 +70,7 @@ for (int i = 1; i < lignesCustomer.Length; i++) // On commence à 1 pour sauter 
     {
         Lastname = values[0],
         Firstname = values[1],
-        Birthdate = Convert.ToDateTime(values[2]),
+        Birthdate = DateTimeUtils.ConvertToDateTime(values[2]),
         PhoneNumber = values[3],
         Email = values[4]
     };
@@ -78,8 +78,8 @@ for (int i = 1; i < lignesCustomer.Length; i++) // On commence à 1 pour sauter 
 } 
 
 DbConnection dbConnectionService = scope.ServiceProvider.GetRequiredService<DbConnection>();
-dbConnectionService.SaveFullCars(cars);
-dbConnectionService.SaveFullCustomers(customers);
+// dbConnectionService.SaveFullCars(cars);
+// dbConnectionService.SaveFullCustomers(customers);
 
 Console.WriteLine("1) Voir liste Voitures");
 Console.WriteLine("2) Historique d'achats");
