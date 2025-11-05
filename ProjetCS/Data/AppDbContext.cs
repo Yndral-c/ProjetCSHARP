@@ -31,11 +31,13 @@ public class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var pathProject = PathHelper.SolutionRootPath;
         // Charger la configuration manuellement
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(
-                @"ProjetCS/appsettings.json")
+            .AddJsonFile( // je ne comprends pas pourquoi ici je dois rajouter cette partie :/RiderProjects/ProjetCSHARP/ProjetCS
+                          // pourtant dans Programs.cs pathPrject + "/appsettings.json" suffit
+                pathProject  + "/appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
         if (!optionsBuilder.IsConfigured)

@@ -21,9 +21,9 @@ public class Cars
     [Required] private bool sale;
 
     [ForeignKey("fk_customer_cars")]
-    public Guid IdCustomer {get; set;}
+    public Guid? IdCustomer {get; set;}
     
-    public Customers Customers {get; set;}
+    public Customers? Customers {get; set;}
     
     public string Brand
     {
