@@ -82,6 +82,12 @@ DbConnection dbConnectionService = scope.ServiceProvider.GetRequiredService<DbCo
 // dbConnectionService.SaveFullCustomers(customers);
 
 Console.WriteLine("1) Voir liste Voitures");
+List<Cars> carsDb = carRepository.GetAllCars();
+foreach (var car in carsDb)
+{
+    Console.WriteLine(car.Brand + " " + car.Model + " " + car.Year + " " + car.PriceHt + " " + car.Color);
+}
+
 Console.WriteLine("2) Historique d'achats");
 Console.WriteLine("3) Ajouter un client");
 Console.WriteLine("4) Ajouter une voiture");

@@ -1,6 +1,6 @@
 namespace ProjetCS.Model;
 
-public class ICarRepository
+public interface ICarRepository
 {
-    
+    List<Cars> GetAllCars();
 }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ProjetCS.Data;
 
 namespace ProjetCS.Model;
