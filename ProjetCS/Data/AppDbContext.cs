@@ -35,8 +35,7 @@ public class AppDbContext : DbContext
         // Charger la configuration manuellement
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile( // je ne comprends pas pourquoi ici je dois rajouter cette partie :/RiderProjects/ProjetCSHARP/ProjetCS
-                          // pourtant dans Programs.cs pathPrject + "/appsettings.json" suffit
+            .AddJsonFile( // Ajouter /RiderProjects/ProjetCSHARP/ProjetCS avant /appsettings.json pour pouvoir exécuter dotnet ef database update
                 pathProject  + "/appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
