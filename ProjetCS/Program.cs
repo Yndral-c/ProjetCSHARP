@@ -24,12 +24,13 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddTransient<DbConnection>();
 
         services.AddTransient<ICarRepository, CarRepository>();
+        services.AddTransient<ICustomerRepository, CustomerRepository>();
     })
     .Build();
     
 using var scope = host.Services.CreateScope();
 ICarRepository carRepository = scope.ServiceProvider.GetRequiredService<ICarRepository>();
-ICarRepository customerRepository = scope.ServiceProvider.GetRequiredService<ICustomerRepository>();
+ICustomerRepository customerRepository = scope.ServiceProvider.GetRequiredService<ICustomerRepository>();
 
 
 String pathCar = $"{pathProject}/Data/voitures.csv";
@@ -83,10 +84,18 @@ DbConnection dbConnectionService = scope.ServiceProvider.GetRequiredService<DbCo
 // dbConnectionService.SaveFullCustomers(customers);
 
 Console.WriteLine("1) Voir liste Voitures");
+// Lister toutes les voitures présente dans la base de donnée
 List<Cars> carsDb = carRepository.GetAllCars();
 foreach (var car in carsDb)
 {
     Console.WriteLine(car.Brand + " " + car.Model + " " + car.Year + " " + car.PriceHt + " " + car.Color);
+}
+
+// Lister tous les clients présent dans la base de donnée
+List<Customers> customerDb = customerRepository.GetAllCustomers();
+foreach (var customer in customerDb)
+{
+    Console.WriteLine(customer.Lastname + " " + customer.Firstname + " " + customer.Birthdate);
 }
 
 Console.WriteLine("2) Historique d'achats");
