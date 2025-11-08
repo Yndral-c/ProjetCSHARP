@@ -105,10 +105,10 @@ void RunMenu(ICarRepository carRepo, ICustomerRepository custRepo)
     Dictionary<string, Action> MenuActions = new Dictionary<string, Action>
     {
         { "1", () => SelectCarList(carRepo) },          // Affiche les Voitures
-        { "2", () => Console.WriteLine("Historique d'achats non implémenté.") }, // Placeholder
+        { "2", () => Console.WriteLine("Historique d'achats non implémenté.") },
         { "3", () => SelectCustomerList(custRepo) },    // Affiche les Clients
-        { "4", () => Console.WriteLine("Ajouter voiture non implémenté.") },   // Placeholder
-        { "5", () => Console.WriteLine("Faire achat non implémenté.") },       // Placeholder
+        { "4", () => Console.WriteLine("Ajouter voiture non implémenté.") },
+        { "5", () => Console.WriteLine("Faire achat non implémenté.") },   
         { "6", () => Environment.Exit(0) }             // Quitter
     };
 
