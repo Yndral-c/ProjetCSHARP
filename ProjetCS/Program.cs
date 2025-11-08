@@ -83,6 +83,7 @@ DbConnection dbConnectionService = scope.ServiceProvider.GetRequiredService<DbCo
 // dbConnectionService.SaveFullCars(cars);
 // dbConnectionService.SaveFullCustomers(customers);
 
+/*
 Console.WriteLine("1) Voir liste Voitures");
 // Lister toutes les voitures présente dans la base de donnée
 List<Cars> carsDb = carRepository.GetAllCars();
@@ -90,17 +91,77 @@ foreach (var car in carsDb)
 {
     Console.WriteLine(car.Brand + " " + car.Model + " " + car.Year + " " + car.PriceHt + " " + car.Color);
 }
-
-// Lister tous les clients présent dans la base de donnée
-List<Customers> customerDb = customerRepository.GetAllCustomers();
-foreach (var customer in customerDb)
-{
-    Console.WriteLine(customer.Lastname + " " + customer.Firstname + " " + customer.Birthdate);
-}
-
+Console.WritLine("1) Voir la liste des voitures");
 Console.WriteLine("2) Historique d'achats");
 Console.WriteLine("3) Ajouter un client");
 Console.WriteLine("4) Ajouter une voiture");
 Console.WriteLine("5) Faire un achat de voiture");
 Console.WriteLine("6) Fin");
+*/
+
+void RunMenu(ICarRepository carRepo, ICustomerRepository custRepo)
+{
+    // Déclaration du Dictionnaire d'Actions (avec les services capturés par lambda)
+    Dictionary<string, Action> MenuActions = new Dictionary<string, Action>
+    {
+        { "1", () => SelectCarList(carRepo) },          // Affiche les Voitures
+        { "2", () => Console.WriteLine("Historique d'achats non implémenté.") }, // Placeholder
+        { "3", () => SelectCustomerList(custRepo) },    // Affiche les Clients
+        { "4", () => Console.WriteLine("Ajouter voiture non implémenté.") },   // Placeholder
+        { "5", () => Console.WriteLine("Faire achat non implémenté.") },       // Placeholder
+        { "6", () => Environment.Exit(0) }             // Quitter
+    };
+
+    bool isRunning = true;
+    while (isRunning)
+    {
+        // Afficheur du Menu
+        Console.WriteLine("\n--- Menu Principal ---");
+        Console.WriteLine("1) Voir liste Voitures");
+        Console.WriteLine("2) Historique d'achats");
+        Console.WriteLine("3) Ajouter un client");
+        Console.WriteLine("4) Ajouter une voiture");
+        Console.WriteLine("5) Faire un achat de voiture");
+        Console.WriteLine("6) Fin");
+        Console.Write("Entrez votre choix (1-6) : ");
+
+        string input = Console.ReadLine()?.Trim();
+
+
+        if (input == "6")
+        {
+            isRunning = false;
+            Console.WriteLine("Programme terminé.");
+        }
+        else
+        {
+            // Exécute l'action trouvée
+            MenuActions[input].Invoke();
+        }
+        
+    }
+}
+
+void SelectCarList(ICarRepository carRepository)
+{
+    Console.WriteLine("\n--- Liste des Voitures ---");
+    List<Cars> carsDb = carRepository.GetAllCars();
     
+    foreach (Cars car in carsDb)
+    {
+        Console.WriteLine($"{car.Brand} {car.Model} {car.Year} - {car.PriceHt} {car.Color}");
+    }
+}
+
+// 3. Méthode pour l'action 3 : Lister les Clients (votre code original)
+void SelectCustomerList(ICustomerRepository customerRepository)
+{
+    Console.WriteLine("\n--- Liste des Clients ---");
+    List<Customers> customerDb = customerRepository.GetAllCustomers();
+    
+    foreach (Customers customer in customerDb)
+    {
+        Console.WriteLine($"{customer.Lastname} {customer.Firstname} {customer.Birthdate}");
+    }
+}
+RunMenu(carRepository, customerRepository);
