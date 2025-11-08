@@ -9,15 +9,15 @@ public class DbConnection
         _appDbContext = appDbContext;
     }
 
-    public void SaveFullCars(List<Cars> car)
+    public void SaveFullCars(List<Cars> cars)
     {
-        _appDbContext.Add(car);
+        _appDbContext.AddRange(cars);
         _appDbContext.SaveChanges();
     }
     
     public void SaveFullCustomers(List<Customers> customers)
     {
-        _appDbContext.Add(customers);
+        _appDbContext.AddRange(customers);
         _appDbContext.SaveChanges();
     }
 }

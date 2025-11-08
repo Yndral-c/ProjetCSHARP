@@ -31,11 +31,12 @@ public class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var pathProject = PathHelper.SolutionRootPath;
         // Charger la configuration manuellement
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(
-                @"ProjetCS/appsettings.json")
+            .AddJsonFile( // Ajouter /RiderProjects/ProjetCSHARP/ProjetCS avant /appsettings.json pour pouvoir exécuter dotnet ef database update
+                pathProject  + "/appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
         if (!optionsBuilder.IsConfigured)

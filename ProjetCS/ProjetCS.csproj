@@ -6,6 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+    
+    <!-- J'ajoute cette partie pour que le fichier appsettings.json soit accessible via un chemin relatif et non absolu -->
+    
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
