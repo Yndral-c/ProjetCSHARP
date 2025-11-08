@@ -26,6 +26,7 @@ var host = Host.CreateDefaultBuilder(args)
     
 using var scope = host.Services.CreateScope();
 ICarRepository carRepository = scope.ServiceProvider.GetRequiredService<ICarRepository>();
+ICarRepository customerRepository = scope.ServiceProvider.GetRequiredService<ICustomerRepository>();
 
 String pathCar = configuration.GetRequiredSection("CSVFiles")["ProjetCSVVoiture"];
 String pathClient = configuration.GetRequiredSection("CSVFiles")["ProjetCSVClient"];
