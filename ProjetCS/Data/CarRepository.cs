@@ -24,7 +24,7 @@ public class CarRepository : ICarRepository
         Cars carToUpdate = _appDbContext.Cars.FirstOrDefault(c => c.Id == IdCar);
         if (carToUpdate == null)
         {
-            throw new ArgumentException($"Car with ID {carId} not found.");
+            throw new ArgumentException($"Car with ID {IdCar} not found.");
         }
         // Mettre à jour les données de la voiture
         carToUpdate.Sale = true;

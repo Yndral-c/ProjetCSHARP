@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations;
 using ProjetCS.Data;
 using ProjetCS.Model;
 
@@ -170,14 +171,14 @@ void PurchaseNewCar(ICarRepository carRepository, ICustomerRepository customerRe
 	// Quel est l'utilisateur qui souhaite acheter une voiture
 	SelectCustomerList(customerRepository);
     Console.Write("Entrez l'ID du client acheteur : ");
-	string inputCustomer = Console.ReadLine()
+	Guid inputCustomer = Console.ReadLine()
 
 	// Quelle voiture l'utilisateur souhaite acheter
 	SelectCarList(carRepository); 
     Console.Write("Entrez l'ID de la voiture à vendre : ");
-	string inputCustomer = Console.ReadLine();
+	Guid inputCar = Console.ReadLine();
 	
 	// Affilier une voiture à un client
-	carRepository.PurchaseCar(carId, customerId);
+	carRepository.PurchaseCar(inputCar inputCustomer);
 }
 RunMenu(carRepository, customerRepository);
