@@ -18,7 +18,7 @@ public class CustomerRepository : ICustomerRepository
     
     public void AddCustomer(Customers customer)
     {
-        _context.Customers.Add(customer);
-        _context.SaveChanges();
+        _appDbContext.Customers.Add(customer);
+        _appDbContext.SaveChanges();
     }
 }

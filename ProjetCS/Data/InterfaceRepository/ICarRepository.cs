@@ -6,7 +6,7 @@ public interface ICarRepository
 
     void PurchaseCar(Guid IdCar, Guid IdCustomer);
     
-    List<Cars> GetPurchaseHistory(int customerId);
+    List<Cars> GetPurchaseHistory(Guid customerId);
     
     void AddCar(Cars car);
 }

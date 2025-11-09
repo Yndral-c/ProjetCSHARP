@@ -1,4 +1,4 @@
-﻿namespace ProjetCS.Model;
+﻿namespace ProjetCS.Utils;
 
 public class DateTimeUtils
 {

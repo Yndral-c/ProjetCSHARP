@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System.ComponentModel.DataAnnotations;
 using ProjetCS.Data;
 using ProjetCS.Model;
+using ProjetCS.Utils;
 
 var pathProject = PathHelper.SolutionRootPath;
 
@@ -109,7 +110,7 @@ void RunMenu(ICarRepository carRepo, ICustomerRepository custRepo)
         { "2", () => Historique(custRepo, carRepo) },
         { "3", () => SelectCustomerList(custRepo) },    // Affiche les Clients
         { "4", () => Console.WriteLine("Ajouter voiture non implémenté.") },
-        { "5", () => PurchaseNewCar(CarRepo, CustRepo) },   
+        { "5", () => PurchaseNewCar(carRepo, custRepo) },   
         { "6", () => Environment.Exit(0) }             // Quitter
     };
 
@@ -170,18 +171,19 @@ void SelectCarList(ICarRepository carRepository)
 void Historique(ICustomerRepository customerRepository, ICarRepository carRepository)
 {
     Console.WriteLine("Entrez l'ID du client dont vous voulez voir l'historique : ");
-    Guid input = Console.ReadLine();
+    Guid.TryParse(Console.ReadLine(), out Guid input);
+
     
     List<Cars> purchasedCars = carRepository.GetPurchaseHistory(input);
     if (purchasedCars.Count == 0)
     {
-        Console.WriteLine($"Aucune voiture trouvée pour le client ID {customerId}.");
+        Console.WriteLine($"Aucune voiture trouvée pour le client ID {input}.");
         return;
     }
     foreach (var car in purchasedCars)
     {
-        dooble prixTTC = car.PriceHt * 1.2
-        Console.WriteLine($"- {car.Brand} {car.Model} ({car.Year}) vendue pour {car.PriceHt:C} HT soit {prixTTC:C} TTC.}");
+        double prixTTC = car.PriceHt * 1.2;
+        Console.WriteLine($"- {car.Brand} {car.Model} ({car.Year}) vendue pour {car.PriceHt:C} HT soit {prixTTC:C} TTC.");
     }
 }
 
@@ -197,7 +199,7 @@ void AddCustomer(ICustomerRepository customerRepository)
     string firstname = Console.ReadLine();
 
     Console.WriteLine("Date de naissance format JJ/MM/YYYY");
-    DateTime birthdate = ConvertToDateTime(Console.ReadLine());
+    DateTime birthdate = DateTimeUtils.ConvertToDateTime(Console.ReadLine());
 
     Console.WriteLine("N° de téléphone : ");
     string phoneNumber = Console.ReadLine();
@@ -208,9 +210,9 @@ void AddCustomer(ICustomerRepository customerRepository)
     Customers newCustomer = new Customers
     {
         Id = id,
-        Lastname = lastName,
-        Firstname = firstName,
-        Birthdate = birthDate,
+        Lastname = lastname,
+        Firstname = firstname,
+        Birthdate = birthdate,
         PhoneNumber = phoneNumber,
         Email = email
     };
@@ -233,7 +235,7 @@ void AddCar(ICarRepository carRepository)
     string year = Console.ReadLine();
     
     Console.WriteLine("Prix HT : ");
-    dooble priceHt = Convert.ToDouble(Console.ReadLine());
+    double priceHt = Convert.ToDouble(Console.ReadLine());
     
     Console.WriteLine("Couleur : ");
     string color = Console.ReadLine();
@@ -241,7 +243,7 @@ void AddCar(ICarRepository carRepository)
     Console.WriteLine("Email : ");
     bool sale = false;
     
-    Customers newCustomer = new Customers
+    Cars newCars = new Cars
     {
         Id = id,
         Brand = brand,
@@ -251,7 +253,7 @@ void AddCar(ICarRepository carRepository)
         Sale = sale
     };
     
-    carRepository.AddCar(newCar);
+    carRepository.AddCar(newCars);
 }
 
 
@@ -261,15 +263,16 @@ void PurchaseNewCar(ICarRepository carRepository, ICustomerRepository customerRe
 	// Quel est l'utilisateur qui souhaite acheter une voiture
 	SelectCustomerList(customerRepository);
     Console.Write("Entrez l'ID du client acheteur : ");
-	Guid inputCustomer = Console.ReadLine()
+    Guid.TryParse(Console.ReadLine(), out Guid inputCustomer);
 
 	// Quelle voiture l'utilisateur souhaite acheter
 	SelectCarList(carRepository); 
     Console.Write("Entrez l'ID de la voiture à vendre : ");
-	Guid inputCar = Console.ReadLine();
+    Guid.TryParse(Console.ReadLine(), out Guid inputCar);
+
 	
 	// Affilier une voiture à un client
-	carRepository.PurchaseCar(inputCar inputCustomer);
+	carRepository.PurchaseCar(inputCar, inputCustomer);
 }
 
 RunMenu(carRepository, customerRepository);

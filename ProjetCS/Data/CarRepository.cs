@@ -31,19 +31,19 @@ public class CarRepository : ICarRepository
         carToUpdate.IdCustomer = IdCustomer;
 
         _appDbContext.Cars.Update(carToUpdate);
-        _appDbContext.SaveChanges()
+        _appDbContext.SaveChanges();
     }
-    
-    public List<Cars> GetPurchaseHistory(int IdCustomer)
+
+    public List<Cars> GetPurchaseHistory(Guid IdCustomer)
     {
-        return _context.Cars
+        return _appDbContext.Cars
             .Where(c => c.IdCustomer == IdCustomer)
             .ToList();
     }
     
     public void AddCar(Cars car)
     {
-        _context.Cars.Add(car);
-        _context.SaveChanges();
+        _appDbContext.Cars.Add(car);
+        _appDbContext.SaveChanges();
     }
 }
