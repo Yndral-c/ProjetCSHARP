@@ -63,7 +63,7 @@ for (int i = 1; i < lignesCar.Length; i++) // On commence à 1 pour sauter l'en-
     };
     cars.Add(car);
 }
-
+/*
 // Lecture du CSV Client
 for (int i = 1; i < lignesCustomer.Length; i++) // On commence à 1 pour sauter l'en-tête
 {
@@ -79,7 +79,7 @@ for (int i = 1; i < lignesCustomer.Length; i++) // On commence à 1 pour sauter 
         Email = values[4]
     };
     customers.Add(customer);
-} 
+} */
 
 DbConnection dbConnectionService = scope.ServiceProvider.GetRequiredService<DbConnection>();
 // dbConnectionService.SaveFullCars(cars);
@@ -108,8 +108,8 @@ void RunMenu(ICarRepository carRepo, ICustomerRepository custRepo)
     {
         { "1", () => SelectCarList(carRepo) },          // Affiche les Voitures
         { "2", () => Historique(custRepo, carRepo) },
-        { "3", () => SelectCustomerList(custRepo) },    // Affiche les Clients
-        { "4", () => Console.WriteLine("Ajouter voiture non implémenté.") },
+        { "3", () => AddCustomer(custRepo)},    // Affiche les Clients
+        { "4", () => AddCar(carRepo) },
         { "5", () => PurchaseNewCar(carRepo, custRepo) },   
         { "6", () => Environment.Exit(0) }             // Quitter
     };
@@ -249,6 +249,7 @@ void AddCar(ICarRepository carRepository)
         Brand = brand,
         Model = model,
         Year = year,
+        PriceHt = priceHt,
         Color = color,
         Sale = sale
     };
