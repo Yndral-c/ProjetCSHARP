@@ -106,7 +106,7 @@ void RunMenu(ICarRepository carRepo, ICustomerRepository custRepo)
     Dictionary<string, Action> MenuActions = new Dictionary<string, Action>
     {
         { "1", () => SelectCarList(carRepo) },          // Affiche les Voitures
-        { "2", () => Console.WriteLine("Historique d'achats non implémenté.") },
+        { "2", () => Historique(custRepo, carRepo) },
         { "3", () => SelectCustomerList(custRepo) },    // Affiche les Clients
         { "4", () => Console.WriteLine("Ajouter voiture non implémenté.") },
         { "5", () => PurchaseNewCar(CarRepo, CustRepo) },   
@@ -142,7 +142,19 @@ void RunMenu(ICarRepository carRepo, ICustomerRepository custRepo)
         
     }
 }
+// Utile pour les fonction suivantes
+void SelectCustomerList(ICustomerRepository customerRepository)
+{
+    Console.WriteLine("\n--- Liste des Clients ---");
+    List<Customers> customerDb = customerRepository.GetAllCustomers();
+    
+    foreach (Customers customer in customerDb)
+    {
+        Console.WriteLine($"{customer.Id} {customer.Lastname} {customer.Firstname} {customer.Birthdate}");
+    }
+}
 
+// 1. Voir liste des voitures
 void SelectCarList(ICarRepository carRepository)
 {
     Console.WriteLine("\n--- Liste des Voitures ---");
@@ -154,18 +166,96 @@ void SelectCarList(ICarRepository carRepository)
     }
 }
 
-// 3. Méthode pour l'action 3 : Lister les Clients (votre code original)
-void SelectCustomerList(ICustomerRepository customerRepository)
+// 2. Historique d'achat d'un client
+void Historique(ICustomerRepository customerRepository, ICarRepository carRepository)
 {
-    Console.WriteLine("\n--- Liste des Clients ---");
-    List<Customers> customerDb = customerRepository.GetAllCustomers();
+    Console.WriteLine("Entrez l'ID du client dont vous voulez voir l'historique : ");
+    Guid input = Console.ReadLine();
     
-    foreach (Customers customer in customerDb)
+    List<Cars> purchasedCars = carRepository.GetPurchaseHistory(input);
+    if (purchasedCars.Count == 0)
     {
-        Console.WriteLine($"{customer.Lastname} {customer.Firstname} {customer.Birthdate}");
+        Console.WriteLine($"Aucune voiture trouvée pour le client ID {customerId}.");
+        return;
+    }
+    foreach (var car in purchasedCars)
+    {
+        dooble prixTTC = car.PriceHt * 1.2
+        Console.WriteLine($"- {car.Brand} {car.Model} ({car.Year}) vendue pour {car.PriceHt:C} HT soit {prixTTC:C} TTC.}");
     }
 }
 
+// 3. Ajouter un client
+void AddCustomer(ICustomerRepository customerRepository)
+{
+    Guid id = Guid.NewGuid();
+    
+    Console.WriteLine("Nom : ");
+    string lastname = Console.ReadLine();
+
+    Console.WriteLine("Prénom : ");
+    string firstname = Console.ReadLine();
+
+    Console.WriteLine("Date de naissance format JJ/MM/YYYY");
+    DateTime birthdate = ConvertToDateTime(Console.ReadLine());
+
+    Console.WriteLine("N° de téléphone : ");
+    string phoneNumber = Console.ReadLine();
+
+    Console.WriteLine("Email : ");
+    string email = Console.ReadLine();
+    
+    Customers newCustomer = new Customers
+    {
+        Id = id,
+        Lastname = lastName,
+        Firstname = firstName,
+        Birthdate = birthDate,
+        PhoneNumber = phoneNumber,
+        Email = email
+    };
+    
+    customerRepository.AddCustomer(newCustomer);
+}
+
+// 4. Ajouter une voiture à la concession
+void AddCar(ICarRepository carRepository)
+{
+    Guid id = Guid.NewGuid();
+    
+    Console.WriteLine("Marque : ");
+    string brand = Console.ReadLine();
+    
+    Console.WriteLine("Model : ");
+    string model = Console.ReadLine();
+    
+    Console.WriteLine("Année : ");
+    string year = Console.ReadLine();
+    
+    Console.WriteLine("Prix HT : ");
+    dooble priceHt = Convert.ToDouble(Console.ReadLine());
+    
+    Console.WriteLine("Couleur : ");
+    string color = Console.ReadLine();
+    
+    Console.WriteLine("Email : ");
+    bool sale = false;
+    
+    Customers newCustomer = new Customers
+    {
+        Id = id,
+        Brand = brand,
+        Model = model,
+        Year = year,
+        Color = color,
+        Sale = sale
+    };
+    
+    carRepository.AddCar(newCar);
+}
+
+
+// 5. Lier une voiture à un client (Achat d'une voiture)
 void PurchaseNewCar(ICarRepository carRepository, ICustomerRepository customerRepository)
 {
 	// Quel est l'utilisateur qui souhaite acheter une voiture
@@ -181,4 +271,5 @@ void PurchaseNewCar(ICarRepository carRepository, ICustomerRepository customerRe
 	// Affilier une voiture à un client
 	carRepository.PurchaseCar(inputCar inputCustomer);
 }
+
 RunMenu(carRepository, customerRepository);

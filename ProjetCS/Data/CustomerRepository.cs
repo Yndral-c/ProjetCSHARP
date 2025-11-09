@@ -15,4 +15,10 @@ public class CustomerRepository : ICustomerRepository
     {
         return _appDbContext.Customers.ToList();
     }
+    
+    public void AddCustomer(Customers customer)
+    {
+        _context.Customers.Add(customer);
+        _context.SaveChanges();
+    }
 }

@@ -33,4 +33,17 @@ public class CarRepository : ICarRepository
         _appDbContext.Cars.Update(carToUpdate);
         _appDbContext.SaveChanges()
     }
+    
+    public List<Cars> GetPurchaseHistory(int IdCustomer)
+    {
+        return _context.Cars
+            .Where(c => c.IdCustomer == IdCustomer)
+            .ToList();
+    }
+    
+    public void AddCar(Cars car)
+    {
+        _context.Cars.Add(car);
+        _context.SaveChanges();
+    }
 }
