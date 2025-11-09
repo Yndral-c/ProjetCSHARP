@@ -108,7 +108,7 @@ void RunMenu(ICarRepository carRepo, ICustomerRepository custRepo)
         { "2", () => Console.WriteLine("Historique d'achats non implémenté.") },
         { "3", () => SelectCustomerList(custRepo) },    // Affiche les Clients
         { "4", () => Console.WriteLine("Ajouter voiture non implémenté.") },
-        { "5", () => Console.WriteLine("Faire achat non implémenté.") },   
+        { "5", () => PurchaseNewCar(CarRepo, CustRepo) },   
         { "6", () => Environment.Exit(0) }             // Quitter
     };
 
@@ -163,5 +163,21 @@ void SelectCustomerList(ICustomerRepository customerRepository)
     {
         Console.WriteLine($"{customer.Lastname} {customer.Firstname} {customer.Birthdate}");
     }
+}
+
+void PurchaseNewCar(ICarRepository carRepository, ICustomerRepository customerRepository)
+{
+	// Quel est l'utilisateur qui souhaite acheter une voiture
+	SelectCustomerList(customerRepository);
+    Console.Write("Entrez l'ID du client acheteur : ");
+	string inputCustomer = Console.ReadLine()
+
+	// Quelle voiture l'utilisateur souhaite acheter
+	SelectCarList(carRepository); 
+    Console.Write("Entrez l'ID de la voiture à vendre : ");
+	string inputCustomer = Console.ReadLine();
+	
+	// Affilier une voiture à un client
+	carRepository.PurchaseCar(carId, customerId);
 }
 RunMenu(carRepository, customerRepository);
